@@ -10,7 +10,7 @@ RUN go mod download
 COPY . .
 
 # Enable CGO for a dynamically linked binary
-RUN CGO_ENABLED=1 GOOS=linux go build -o /my-app
+RUN CGO_ENABLED=0 GOOS=linux go build -o /my-app
 
 ## -----------------------------------------------------
 ## Using a non-dev Go variant (has shell & shared libs)
