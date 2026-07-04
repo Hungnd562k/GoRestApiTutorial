@@ -24,6 +24,7 @@ var Port int32
 func Configpkg() {
 	f, err := os.Open("config.yaml")
 	if err != nil {
+		fmt.Println(err)
 		fmt.Println("Error while reading config.yaml", err)
 		os.Exit(1)
 	}
