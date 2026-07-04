@@ -7,7 +7,7 @@ FROM golang:1.25-alpine AS build-stage
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
-COPY *.go ./
+COPY . .
 
 # Enable CGO for a dynamically linked binary
 RUN CGO_ENABLED=1 GOOS=linux go build -o /my-app
