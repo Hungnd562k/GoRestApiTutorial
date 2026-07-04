@@ -18,4 +18,5 @@ FROM golang:1.25-alpine AS runtime-stage
 
 WORKDIR /
 COPY --from=build-stage /my-app /my-app
+COPY --from=build-stage /app/config.yaml /config.yaml
 ENTRYPOINT ["/my-app"]
