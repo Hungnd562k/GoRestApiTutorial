@@ -13,12 +13,14 @@ type Config struct {
 		Port int32  `yaml:"port"`
 	} `yaml:"server"`
 	Database struct {
-		Username string `yaml:"user"`
-		Password string `yaml:"pass"`
+		Address           string `yaml:"address"`
+		Username          string `yaml:"user"`
+		Password          string `yaml:"pass"`
+		ConnectionTimeout string `yaml:"connection_timeout"`
 	} `yaml:"database"`
 }
 
-var Host, Username, Password string
+var Host, Address, Username, Password, ConnectionTimeout string
 var Port int32
 
 func Configpkg() {
@@ -40,6 +42,9 @@ func Configpkg() {
 
 	Host = cfg.Server.Host
 	Port = cfg.Server.Port
+
+	Address = cfg.Database.Address
 	Username = cfg.Database.Username
 	Password = cfg.Database.Password
+	ConnectionTimeout = cfg.Database.ConnectionTimeout
 }

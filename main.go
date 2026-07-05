@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	configpkg "github.com/Hungnd562k/GoRestApiTutorial/config_pkg"
+	dbhelper "github.com/Hungnd562k/GoRestApiTutorial/dataaccess"
 	"github.com/gorilla/mux"
 )
 
@@ -23,7 +24,12 @@ type Article struct {
 var Articles []Article
 
 func health(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Healthy")
+	isDbConnect := dbhelper.CheckDbConnection()
+	if !isDbConnect {
+		http.Error(w, "Could not connect to Database", http.StatusInternalServerError)
+		return
+	}
+	fmt.Fprintln(w, "Healthy")
 }
 
 // Main home page
