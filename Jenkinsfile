@@ -16,5 +16,10 @@ pipeline {
                 echo 'This is the final stage!'
             }
         }
+        stage('Ultimately final stage') {
+            steps {
+                echo 'This is the real final stage!'
+            }
+        }
     }
 }
