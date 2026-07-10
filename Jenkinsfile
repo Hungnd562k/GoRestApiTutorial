@@ -2,7 +2,11 @@ pipeline {
     agent any
     stages {
         stage('Build Image') {
-            steps {
+            withEnv([
+                "DOCKER_HOST=tcp://docker:2376",
+                "DOCKER_CERT_PATH=/certs/client",
+                "DOCKER_TLS_VERIFY=1"
+            ]) {
                 sh 'docker build -t hungnd2/go-rest-api-turtorial:v2.0.0 .'
             }
         }
