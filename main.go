@@ -141,12 +141,15 @@ func handleRequests() {
 }
 
 func main() {
-	fmt.Println("Rest API v2.0 - Mux Routers")
+	configpkg.Configpkg()
+
+	appInfo := fmt.Sprintf("Rest API %s - Mux Routers", configpkg.Version)
+	fmt.Println(appInfo)
 	Articles = []Article{
 		{Id: 1, Title: "Đây là title 1", Desc: "Mô tả của title 1", Content: "Còn đây là nội dung của Title 1", Deleted: false},
 		{Id: 2, Title: "Đây là title 2", Desc: "Mô tả của title 2", Content: "Còn đây là nội dung của Title 2", Deleted: false},
 	}
-	configpkg.Configpkg()
+
 	fmt.Println("Host: ", configpkg.Host)
 	fmt.Println("Port: ", configpkg.Port)
 	fmt.Println("Username: ", configpkg.Username)

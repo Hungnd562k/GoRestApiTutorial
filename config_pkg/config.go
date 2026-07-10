@@ -8,6 +8,9 @@ import (
 )
 
 type Config struct {
+	App struct {
+		Version string `yaml:"version"`
+	} `yaml:"app"`
 	Server struct {
 		Host string `yaml:"host"`
 		Port int32  `yaml:"port"`
@@ -20,7 +23,7 @@ type Config struct {
 	} `yaml:"database"`
 }
 
-var Host, Address, Username, Password, ConnectionTimeout string
+var Version, Host, Address, Username, Password, ConnectionTimeout string
 var Port int32
 
 func Configpkg() {
@@ -39,6 +42,8 @@ func Configpkg() {
 		fmt.Println("Error while decoding config")
 		os.Exit(1)
 	}
+
+	Version = cfg.App.Version
 
 	Host = cfg.Server.Host
 	Port = cfg.Server.Port
