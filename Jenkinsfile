@@ -17,7 +17,9 @@ pipeline {
             }
         }
         stage('Remove Image after push to Registry') {
-            sh 'docker rm hungnd2/go-rest-api-turtorial:v2.0.0'
+            steps {
+                sh 'docker rmi hungnd2/go-rest-api-turtorial:v2.0.0'
+            }
         }
         stage('Ultimately final stage') {
             steps {
