@@ -1,12 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Stage 1') {
+        stage('Build Image') {
             steps {
-                echo 'Hello world!'
+                sh 'docker build -t hungnd2/go-rest-api-turtorial:v2.0.0 .'
             }
         }
-        stage('Stage 2') {
+        stage('Push Image') {
             steps {
                 echo 'This is stage 2!'
             }
@@ -15,6 +15,9 @@ pipeline {
             steps {
                 echo 'This is the final stage!'
             }
+        }
+        stage('Remove Image after push to Registry') {
+            sh 'docker rm hungnd2/go-rest-api-turtorial:v2.0.0'
         }
         stage('Ultimately final stage') {
             steps {
