@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent Agent-1
     environment {
         // Định nghĩa biến global tại đây
         COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
