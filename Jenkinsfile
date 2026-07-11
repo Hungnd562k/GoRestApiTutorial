@@ -28,8 +28,16 @@ pipeline {
             }
         }
         stage('Push Image') {
+            environment {
+                // Nạp Username và Password từ Credentials vào 2 biến môi trường
+                DOCKER_HUB = credentials('docker-hub-credentials') 
+            }
             steps {
-                // Đã loại bỏ dấu chấm (.) dư thừa ở cuối lệnh push
+                echo "Logging into Docker Hub..."
+                // Lệnh đăng nhập sử dụng biến môi trường tự động sinh ra ($DOCKER_HUB_USR và $DOCKER_HUB_PSW)
+                sh "echo \$DOCKER_HUB_PSW | docker login -u \$DOCKER_HUB_USR --password-stdin"
+                
+                echo "Pushing image..."
                 sh "docker push hungnd2/go-rest-api-turtorial:${COMMIT_HASH}"
             }
         }
