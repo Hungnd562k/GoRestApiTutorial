@@ -1,29 +1,25 @@
 pipeline {
     agent any
+    environment {
+        // Định nghĩa biến global tại đây
+        COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+    }
     stages {
+        stage('Clone source') {
+            steps {
+                echo 'Cloning source code...'
+                sh 'git clone https://github.com/Hungnd562k/GoRestApiTutorial.git'
+                sh 'git checkout master'
+            }
+        }
         stage('Build Image') {
             steps {
-                sh 'docker build -t hungnd2/go-rest-api-turtorial:v2.0.0 .'
+                sh "docker build -t hungnd2/go-rest-api-turtorial:${COMMIT_HASH} ."
             }
         }
         stage('Push Image') {
             steps {
-                echo 'This is stage 2!'
-            }
-        }
-        stage('Test stage') {
-            steps {
-                echo 'This is the final stage!'
-            }
-        }
-        stage('Remove Image after push to Registry') {
-            steps {
-                sh 'docker rmi hungnd2/go-rest-api-turtorial:v2.0.0'
-            }
-        }
-        stage('Ultimately final stage') {
-            steps {
-                echo 'This is the real final stage!'
+                sh "docker push -t hungnd2/go-rest-api-turtorial:${COMMIT_HASH} ."
             }
         }
     }
