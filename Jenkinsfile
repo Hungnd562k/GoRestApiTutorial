@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'Agent-1' }
+    agent { label 'Agent-2' }
     environment {
         COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         DOCKER_HUB = credentials('docker-hub-credentials') 
@@ -37,7 +37,7 @@ pipeline {
                 sh "echo \$DOCKER_HUB_PSW | docker login -u \$DOCKER_HUB_USR --password-stdin"
                 
                 echo "Pushing image..."
-                sh "docker push hungnd2/go-rest-api-turtorial:${COMMIT_HASH}"
+                sh "docker push hungnd2/go-rest-api-tutorial:${COMMIT_HASH}"
             }
         }
     }
