@@ -40,5 +40,11 @@ pipeline {
                 sh "docker push hungnd2/go-rest-api-tutorial:${COMMIT_HASH}"
             }
         }
+        stage('Cleaning') {
+            steps {
+                echo "Clear local image after push to registry..."
+                sh "docker rmi hungnd2/go-rest-api-tutorial:${COMMIT_HASH}"
+            }
+        }
     }
 }
