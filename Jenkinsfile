@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh "docker build -t hungnd2/go-rest-api-turtorial:${COMMIT_HASH} ."
+                sh "docker build -t hungnd2/go-rest-api-tutorial:${COMMIT_HASH} ."
             }
         }
         stage('Push Image') {
