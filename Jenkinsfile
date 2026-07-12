@@ -2,6 +2,7 @@ pipeline {
     agent { label 'Agent-1' }
     environment {
         COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+        DOCKER_HUB = credentials('docker-hub-credentials') 
     }
     stages {
         stage('Clone source') {
@@ -28,12 +29,10 @@ pipeline {
             }
         }
         stage('Push Image') {
-            environment {
-                // Nạp Username và Password từ Credentials vào 2 biến môi trường
-                DOCKER_HUB = credentials('docker-hub-credentials') 
-            }
             steps {
                 echo "Logging into Docker Hub..."
+                echo "DOCKER_HUB_USR: ${DOCKER_HUB_USR}"
+                echo "DOCKER_HUB_PSW: ${DOCKER_HUB_PSW}"
                 // Lệnh đăng nhập sử dụng biến môi trường tự động sinh ra ($DOCKER_HUB_USR và $DOCKER_HUB_PSW)
                 sh "echo \$DOCKER_HUB_PSW | docker login -u \$DOCKER_HUB_USR --password-stdin"
                 
